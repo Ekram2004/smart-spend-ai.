@@ -5,6 +5,8 @@ const morgan = require('morgan');
 require('dotenv').config();
 const { PrismaClient } = require('@prisma/client')
 const { categorizeTransaction } = require('./aiServer');
+const authenticateToken = require('./middleware');
+const authRoutes = require('./auth');
 
 
 const app = express();
@@ -14,13 +16,16 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
 
+
 app.get('/', (req, res) => {
     res.json({ message: "SmartSpend AI API is live!" });
 });
 
+app.use('/auth', authRoutes);
+
 const prisma = new PrismaClient();
 
-app.post('/api/transactions', async (req, res) => {
+app.post('/api/transactions',authenticateToken, async (req, res) => {
     const { description, amount } = req.body;
 
     try {
@@ -39,7 +44,7 @@ app.post('/api/transactions', async (req, res) => {
     }
 });
 
-app.get('/api/transactions', async (req, res) => {
+app.get('/api/transactions',authenticateToken, async (req, res) => {
     const transactions = await prisma.transaction.findMany({
         orderBy: { date: 'desc' }
     });
