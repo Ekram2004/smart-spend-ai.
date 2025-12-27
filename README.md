@@ -76,6 +76,6 @@ This allows the UI to render a distribution chart in $O(n)$ time complexity, ens
 ---
 
 ## 🧑‍💻 Author
-**Your Name**
-* LinkedIn: [Your LinkedIn Profile]
-* Portfolio: [Your Portfolio Link]
+**Ekram Asrar**
+* LinkedIn:https://www.linkedin.com/in/ekram-a-835057294/
+* Portfolio:https://my-portfolio-five-dusky-35.vercel.app/
